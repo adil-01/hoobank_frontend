@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import '../styles/table.css';
 import logo from '../assets/logo.svg' 
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { formatReverseDate } from '../utils/dateUtil';
 
 function Table({ acc_no, setSavings, setSpendings }) {
 
     const [invoices, setInvoices] =  useState([]);
     const [searchQuery, setSearchQuery] =  useState('');
     const [searchResults, setSearchResults] = useState(new Set(invoices));
+    const [from, setFrom] =  useState('2023-07-01');
+    const [to, setTo] =  useState(formatReverseDate());
 
     let navigate = useHistory();
 
@@ -42,6 +45,7 @@ function Table({ acc_no, setSavings, setSpendings }) {
 
     const getSearchResults = async () => {
         let queryR = new Set();
+        let dateR = new Set();
         invoices.filter(item => {
           if (item.senderAccNumber.toLowerCase().includes(searchQuery.toLowerCase())){
               queryR.add(item)
@@ -53,7 +57,7 @@ function Table({ acc_no, setSavings, setSpendings }) {
             }
           })
         invoices.filter(item => {
-          if (item.transaction_date.toLowerCase().includes(searchQuery.toLowerCase())){
+          if (item.amount.toLowerCase().includes(searchQuery.toLowerCase())){
             queryR.add(item)
           }
         })
@@ -61,29 +65,57 @@ function Table({ acc_no, setSavings, setSpendings }) {
             if (item.transaction_type.toLowerCase().includes(searchQuery.toLowerCase())){
               queryR.add(item)
             }
-          })
+        })
+        // date range filter
+        invoices.filter(item => {
+            var invoice_date = item.transaction_date.split("-").reverse().join("-")
+            invoice_date = new Date(invoice_date);
+            var start = new Date(from);
+            var end = new Date(to);
+            console.log(invoice_date >= start && invoice_date <= end)
+            if (invoice_date >= start && invoice_date <= end){
+                dateR.add(item)
+            }
+        })
+        // Setting default resullts
         if (searchQuery === "") {
             queryR = new Set(invoices)
         }
-        setSearchResults(queryR)
+        if (from === '2018-01-01' && to === formatReverseDate()){
+            dateR = new Set(invoices)
+        }
+        let intersect = new Set([...queryR].filter(i => dateR.has(i)))
+        setSearchResults(intersect)
+        // setSearchResults(queryR)
     }
 
     useEffect(() => {
         getSearchResults()
-    }, [searchQuery])
+    }, [searchQuery, from, to])
 
     return (
         <>
             <div className="table-wrapper">
                 <div>
-                    <Link to="/">
+                    {/* <Link to="/">
                         <img className="hoo_logo" src={logo} alt="logo"/>
-                    </Link>
-                    <h3>Transaction History</h3>
+                    </Link> */}
+                    <h3>Transactions</h3>
                     <div className="search_box">
                         <input className="search" type="search" value={searchQuery} 
                         placeholder="Search transactions..."
                         onChange={e => {setSearchQuery(e.target.value);}}/>
+                        <label>
+                            {/* <span>From</span> */}
+                            <input className="from" type="date" value={from}
+                            onChange={(e) => setFrom(e.target.value)} />
+                        </label>
+                        <i style={{'margin': '0 7px'}} className='fas fa-exchange-alt'></i>
+                        <label>
+                            {/* <span>To</span> */}
+                            <input className="to" type="date" value={to}
+                            onChange={(e) => setTo(e.target.value)}/>
+                        </label>
                     </div>
                 </div>
                 <div style={{'padding': '10px 8px', 'paddingLeft': '15px'}}>

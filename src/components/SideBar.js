@@ -3,6 +3,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "../styles/sidebar.css";
 import obs_logo from "../assets/logo.svg"
 import summary from "../assets/summary.svg";
+import shield from "../assets/Shield.svg";
 import cash from "../assets/cash.svg";
 // import summary from "../assets/summary.svg";
 import { useState } from 'react';
@@ -56,13 +57,13 @@ export default function SideBar({ initial, acc_no, balance }) {
                 }}
                 />
 
-                {/* <Icon key="beneficiaries" name="beneficiaries" imgUrl={profile}
-                isActive={isActive} text="Beneficiaries"
+                <Icon key="password" name="password" imgUrl={shield}
+                isActive={isActive} text="Change Password"
                 handleClick={() => {
-                    setIsActive("beneficiaries");
-                    router.push("/beneficiaries");
+                    setIsActive("password");
+                    router.push("/forgot-password");
                 }}
-                /> */}
+                />
             </div>
         </div>
     </div>

@@ -28,19 +28,19 @@ const ForgetPassword = () => {
     const router = useHistory();
     
 
-    useEffect(() => {
-        const jwt_token = localStorage.getItem('hoobank_jwt');
-        if (jwt_token != null){
-            const decoded = jwt_decoder(jwt_token);
+    // useEffect(() => {
+    //     const jwt_token = localStorage.getItem('hoobank_jwt');
+    //     if (jwt_token != null){
+    //         const decoded = jwt_decoder(jwt_token);
         
-            console.log(decoded);
-            if (decoded.exp * 1000 > Date.now()){
-                router.push({
-                    pathname : "/"
-                });
-            }
-        }
-    }, [])
+    //         console.log(decoded);
+    //         if (decoded.exp * 1000 > Date.now()){
+    //             router.push({
+    //                 pathname : "/"
+    //             });
+    //         }
+    //     }
+    // }, [])
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })

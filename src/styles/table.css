@@ -29,21 +29,28 @@
     border: none;
     outline: none;
     border-radius: 4px;
-    width: 200px;
+    width: 180px;
     color: #313131;
 }
 
-.table-wrapper label{
-    margin-left: 15px;
-}
-
-.from, .to {
-    padding: 8px;
+.from {
+    padding: 6px;
     border: none;
     outline: none;
     border-radius: 4px;
     width: 100px;
-    margin-left: 5px;
+    margin-left: 20px;
+    color: #1f1f1f;
+}
+
+.to{
+    padding: 6px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    width: 100px;
+    margin-left: 0px !important;
+    color: #1f1f1f;
 }
 
 .bill:nth-child(odd) {
