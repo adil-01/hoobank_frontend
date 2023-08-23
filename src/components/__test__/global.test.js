@@ -32,7 +32,7 @@ test('admin dashboard render', () => {
 })
 
 test('admin all_accounts api', async () => {
-    const res = await fetch(`http://localhost:8080/api/v1/accounts`)
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/accounts`)
     const data = await res.json();
 
     expect(data[0]["account_type"]).toEqual("savings");

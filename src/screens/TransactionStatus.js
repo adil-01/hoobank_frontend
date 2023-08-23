@@ -14,7 +14,7 @@ const TransactionStatus = () => {
     useEffect(() => {
         async function getTransaction(){
             try{
-                const res = await fetch(`http://localhost:8080/api/v1/transaction/${location.search.substring(1)}`)
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/transaction/${location.search.substring(1)}`)
                 const data = await res.json()
                 console.log(data);
                 setTransaction(data)

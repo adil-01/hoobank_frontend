@@ -48,7 +48,7 @@ const Dashboard = () => {
     // var customer_id = "OVaTTsTU";
     const accountExist = async (customer_id) => {
         setIsLoading(true);
-        const res = await fetch(`http://localhost:8080/api/v1/account_exist/${customer_id}`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/account_exist/${customer_id}`);
         const data = await res.json();
 
         if (data != null) {

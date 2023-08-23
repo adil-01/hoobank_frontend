@@ -21,7 +21,7 @@ function Table({ acc_no, setSavings, setSpendings }) {
             var spend = 0;
             var save = 0;
             try{
-                const res = await fetch(`http://localhost:8080/api/v1/user_transactions/${acc_no}`)
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/user_transactions/${acc_no}`)
                 const data = await res.json()
                 console.log(data);
                 setInvoices(data)

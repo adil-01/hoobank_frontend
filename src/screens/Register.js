@@ -38,7 +38,7 @@ const Register = () => {
             setError("Password doesn't match. Try again");
         } else {
 
-            const res = await fetch(`http://localhost:8080/api/v1/add_account/${location.search.substring(1)}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/add_account/${location.search.substring(1)}`, {
                 method: "PUT",
                 body: JSON.stringify(form),
                 headers: {

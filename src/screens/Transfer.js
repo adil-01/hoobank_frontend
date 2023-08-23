@@ -76,7 +76,7 @@ const Transfer = () => {
         async function getBeneficiaries(){
             try{
                 console.log('accNo', accNo)
-                const res = await fetch(`http://localhost:8080/api/v1/user_payees/${location.search.split("?")[1]}`)
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/user_payees/${location.search.split("?")[1]}`)
                 const data = await res.json()
                 console.log(data);
                 setBeneficiaries(data)
@@ -86,7 +86,7 @@ const Transfer = () => {
         }
 
         getBeneficiaries();
-    }, [])
+    }, [isOpen])
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
@@ -108,7 +108,7 @@ const Transfer = () => {
         }
          else {
             console.log(form)
-            const res = await fetch("http://localhost:8080/api/v1/add_transaction", {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/add_transaction`, {
                 method: "POST",
                 body: JSON.stringify(form),
                 headers: {
@@ -132,12 +132,15 @@ const Transfer = () => {
             setPopErr("Enter all required fields");
             // alert("Enter all required fields");
         }
+        else if (beneForm.receiver_acc_number == beneForm.senderAccNumber) {
+            setPopErr("Can't add yourself as payee");
+        }
         else if (beneForm.receiver_acc_number != receiverAccNumberConfirm) {
             setPopErr("Receiver Account Number doesn't match!");
         }
          else {
             
-            const res = await fetch("http://localhost:8080/api/v1/add_payee", {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/add_payee`, {
                 method: "POST",
                 body: JSON.stringify(beneForm),
                 headers: {
@@ -209,7 +212,7 @@ const Transfer = () => {
         />}
         {toast ? 
             <Toast type={"success"} isActive={true}
-            message={"Added succesfully! Refresh to see updates"} /> : null
+            message={"Added beneficiary succesfully!"} /> : null
         }
         <SideBar initial="transfer" />
         <div style={{'width': '100%'}}>

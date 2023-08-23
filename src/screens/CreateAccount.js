@@ -39,7 +39,7 @@ const CreateAccount = () => {
         } else if (!form.email.includes("@")) {
             setError("Enter Valid email address")
         } else {
-            const res = await fetch(`http://localhost:8080/api/v1/add_account`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/add_account`, {
                 method: "POST",
                 body: JSON.stringify(form),
                 headers: {

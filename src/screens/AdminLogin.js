@@ -55,7 +55,7 @@ const AdminLogin = () => {
             setError("Password should be atleast 8 characters");
         } else {
 
-            const res = await fetch("http://localhost:8080/api/v1/admin_login", {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/admin_login`, {
                 method: "POST",
                 body: JSON.stringify(form),
                 headers: {

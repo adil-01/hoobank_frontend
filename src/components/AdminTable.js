@@ -17,7 +17,7 @@ function AdminTable({ setAccountNo, setAccount }) {
     useEffect(() => {
         async function getTransactionsByUserId(){
             try{
-                const res = await fetch(`http://localhost:8080/api/v1/accounts`)
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/accounts`)
                 const data = await res.json()
                 console.log(data);
                 setInvoices(data)
@@ -61,7 +61,7 @@ function AdminTable({ setAccountNo, setAccount }) {
     const deleteAccount = async (acc_no, e) => {
         e.preventDefault();
         try{
-            const res = await fetch(`http://localhost:8080/api/v1/delete_account/${acc_no}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/delete_account/${acc_no}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ function AdminTable({ setAccountNo, setAccount }) {
     }
 
     async function getAccount(acc_no) {
-        const res = await fetch(`http://localhost:8080/api/v1/account/${acc_no}`)
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/account/${acc_no}`)
         const data = await res.json();
         console.log(data);
         setAccount(data)

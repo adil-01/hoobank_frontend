@@ -34,7 +34,7 @@ const ProfileCompletion = () => {
         } else if (form.mobile_no.length != 10) {
             alert("Mobile number should be 10 digits")
         } else {
-            const res = await fetch(`http://localhost:8080/api/v1/add_user/${user_id.substring(1)}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/add_user/${user_id.substring(1)}`, {
                 method: "PUT",
                 body: JSON.stringify(form),
                 headers: {

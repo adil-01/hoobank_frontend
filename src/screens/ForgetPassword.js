@@ -54,7 +54,7 @@ const ForgetPassword = () => {
             setError("Password doesn't match. Try again");
         } else {
 
-        const res = await fetch(`http://localhost:8080/api/v1/change_password/${form.customerId}`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/change_password/${form.customerId}`, {
                 method: "PUT",
                 body: JSON.stringify(form),
                 headers: {

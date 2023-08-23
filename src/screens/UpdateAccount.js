@@ -36,7 +36,7 @@ const UpdateAccount = ({ account, setAccount }) => {
         } else if (!form.email.includes("@")) {
             setError("Enter Valid email address")
         } else {
-            const res = await fetch(`http://localhost:8080/api/v1/update_account/${form.account_number}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/update_account/${form.account_number}`, {
                 method: "POST",
                 body: JSON.stringify(form),
                 headers: {
