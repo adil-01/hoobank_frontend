@@ -19,33 +19,10 @@ test('logout button render', () => {
     expect(sidebarElement).toHaveTextContent('Logout');
 })
 
-test('form validation', () => {
-    expect(true).toBe(true);
-})
-
-test('popup render', () => {
-    expect(true).toBe(true);
-})
-
-test('admin dashboard render', () => {
-    expect(true).toBe(true);
-})
-
+// Api Integration test
 test('admin all_accounts api', async () => {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/accounts`)
     const data = await res.json();
 
     expect(data[0]["account_type"]).toEqual("savings");
-})
-
-test('navbar render', () => {
-    expect(true).toBe(true);
-})
-
-test('transaction render', () => {
-    expect(true).toBe(true);
-})
-
-test('account creation render', () => {
-    expect(true).toBe(true);
 })
